@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Compra de Entradas</title>
+    <link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css" rel="stylesheet">
+</head>
+<body class="bg-gray-100">
+    {% extends "layout.html" %}
+    {% block content %}
+        <div class="max-w-4xl mx-auto p-6 bg-white rounded-lg shadow-md mt-10">
+            <h1 class="text-3xl font-bold text-center text-indigo-600 mb-6">Compra tus Entradas para Fiestas</h1>
+            <form action="{% url 'home' %}" method="POST" class="space-y-6">
+                {% csrf_token %}
+                <div>
+                    <label for="event" class="block text-sm font-medium text-gray-700">Nombre de evento</label>
+                    <select name="event" id="event" class="mt-1 block w-full py-2 px-3 border border-gray-300 bg-white rounded-md shadow-sm focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm">
+                        {% for event in events %}
+                            <option value="{{ event.id }}">{{ event.title }}</option>
+                        {% endfor %}
+                    </select>
+                </div>
+                <div>
+                    <label for="date" class="block text-sm font-medium text-gray-700">Fecha de evento</label>
+                    <select name="date" id="date" class="mt-1 block w-full py-2 px-3 border border-gray-300 bg-white rounded-md shadow-sm focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm">
+                        {% for event in events %}
+                            <option value="{{ event.id }}">{{ event.date }}</option>
+                        {% endfor %}
+                    </select>
+                </div>
+                <div>
+                    <label for="city" class="block text-sm font-medium text-gray-700">Ubicación</label>
+                    <select name="city" id="city" class="mt-1 block w-full py-2 px-3 border border-gray-300 bg-white rounded-md shadow-sm focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm">
+                        {% for event in events %}
+                            <option value="{{ event.id }}">{{ event.city }}</option>
+                        {% endfor %}
+                    </select>
+                </div>
+                <div>
+                    <label for="user" class="block text-sm font-medium text-gray-700">Usuario</label>
+                    <select name="user" id="user" class="mt-1 block w-full py-2 px-3 border border-gray-300 bg-white rounded-md shadow-sm focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm">
+                        {% for user in users %}
+                            <option value="{{ user.id }}">{{ user.username }}</option>
+                        {% endfor %}
+                    </select>
+                </div>
+                <div>
+                    <input type="submit" value="Comprar Entrada" class="w-full py-2 px-4 bg-indigo-600 text-white font-semibold rounded-md shadow-md hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:ring-offset-2">
+                </div>
+            </form>
+        </div>
+    {% endblock %}
+</body>
+</html>

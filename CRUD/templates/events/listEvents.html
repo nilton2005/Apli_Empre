@@ -1,0 +1,42 @@
+{% extends "layout.html" %}
+{% block content %}
+<div class="container mx-auto p-4">
+    <table class="min-w-full bg-white border border-gray-300">
+        <thead>
+            <tr class="bg-gray-200 text-gray-600 uppercase text-sm leading-normal">
+                <th class="py-3 px-6 text-left">Título</th>
+                <th class="py-3 px-6 text-left">Fecha</th>
+                <th class="py-3 px-6 text-left">Ciudad</th>
+                <th class="py-3 px-6 text-left">Artista</th>
+                <th class="py-3 px-6 text-left">Estado</th>
+                <th class="py-3 px-6 text-left">Acciones</th>
+            </tr>
+        </thead>
+        <tbody class="text-gray-600 text-sm font-light">
+            {% for event in events %}
+                <tr class="border-b border-gray-200 hover:bg-gray-100">
+                    <td class="py-3 px-6 text-left whitespace-nowrap">{{ event.title }}</td>
+                    <td class="py-3 px-6 text-left">{{ event.date }}</td>
+                    <td class="py-3 px-6 text-left">{{ event.city }}</td>
+                    <td class="py-3 px-6 text-left">{{ event.artist }}</td>
+                    <td class="py-3 px-6 text-left">
+                        {% if event.id in registrosID %}
+                            <span class="text-green-500">Reservado</span>
+                        {% else %}
+                            <span class="text-red-500">Disponible</span>
+                        {% endif %}
+                    </td>
+                    <td class="py-3 px-6 text-left">
+                        <a href="{% url 'editEvent' event.id %}" class="text-blue-500 hover:underline">Editar</a>
+                        <a href="{% url 'deleteEvent' event.id %}" class="text-red-500 hover:underline ml-4">Eliminar</a>
+                    </td>
+                </tr>
+            {% endfor %}
+        </tbody>
+    </table>
+
+    <div class="mt-4">
+        <a href="{% url 'addEvent' %}" class="bg-blue-500 text-white py-2 px-4 rounded hover:bg-blue-700">Crea nuevo evento</a>
+    </div>
+</div>
+{% endblock %}
